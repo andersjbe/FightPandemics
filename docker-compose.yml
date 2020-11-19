@@ -71,7 +71,17 @@ services:
       - client
     environment:
       - CYPRESS_baseUrl=http://client:3000
-    command: ["dockerize", "-wait", "http://client:3000", "-timeout", "300s", "bash", "-c", "npm run test"]
+    command:
+      [
+        "dockerize",
+        "-wait",
+        "http://client:3000",
+        "-timeout",
+        "300s",
+        "bash",
+        "-c",
+        "npm run test",
+      ]
     volumes:
       - ./cypresse2e/mochawesome-report/:/app/mochawesome-report/
       - ./cypresse2e/cypress:/app/cypress
@@ -104,6 +114,7 @@ services:
     command: dockerize -wait http://client:3000 -timeout 300s npm run test
     volumes:
       - ./mocha/test/:/app/test/
+      - ./mocha/models/:/app/models/
       - ./mocha/utils/:/app/utils/
     working_dir: /app
     networks:
