@@ -1,4 +1,5 @@
 const { expect } = require("chai");
+const _ = require("lodash");
 
 exports.validateStatusCodeErrorAndMessage = function (
   response,
@@ -28,4 +29,17 @@ exports.validateStatusCodeAndMessage = function (response, statusCode, status) {
   expect(response).to.have.a.property("statusCode").to.be.equal(statusCode);
   expect(response).to.have.a.property("status").to.be.equal(status);
   expect(response).to.have.a.property("ok").to.be.equal(true);
+};
+
+exports.validateInitialAndResponseObject = function (
+  initial,
+  initialPropToOmit,
+  response,
+  responsPropToOmit,
+) {
+  var result = _.isEqual(
+    _.omit(initial, initialPropToOmit),
+    _.omit(response, responsPropToOmit),
+  );
+  expect(result).to.be.equal(true);
 };
